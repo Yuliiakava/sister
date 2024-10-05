@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -16,8 +15,6 @@
             font-size: 2em;
             text-align: center;
             transition: background 0.5s;
-            overflow: hidden;
-            position: relative; /* Added to contain absolutely positioned elements */
         }
 
         .emoji {
@@ -66,7 +63,7 @@
     </style>
 </head>
 <body>
-    <div id="text">Просто нажимай на екран 🤍</div>
+    <h1 id="text">Просто нажимай на екран 🤍</h1>
 
     <div id="cat" class="emoji">🐈‍⬛🤍🐈‍⬛🤍🐈‍⬛🤍</div>
     <div id="hearts" class="emoji">🤍🐈‍⬛🤍🐈‍⬛🤍🐈‍⬛</div>
@@ -111,22 +108,24 @@
             "Ти впевнена, що не хотіла стати шеф-кухарем? Бо твій суп виглядає так, наче його готував якийсь знаменитий кухар з Сеула 🍜",
             "Якщо сьогодні готуєш щось солодке, не забудь мене покликати. Я ж найкращий дегустатор десертів, ти знаєш 🍰",
             "Чи можу я спробувати малювати з тобою? Бо мені здається, що разом ми можемо створити щось по-справжньому неймовірне 🎉"
-        ];
+              ];
 
+        let index = 0;
         const textElement = document.getElementById('text');
         const heartElement = document.getElementById('heart');
 
-        document.body.addEventListener('click', () => {
-            const randomIndex = Math.floor(Math.random() * texts.length);
-            textElement.innerText = texts[randomIndex];
-            heartElement.style.display = 'block';
-            heartElement.classList.add('animate');
+        const handleClick = () => {
+            if (index < texts.length) {
+                textElement.innerText = texts[index];
+                index++;
+            } else {
+                textElement.innerText = ""; // Сховати текст
+                heartElement.style.display = 'block'; // Показати серце
+                index = 0; // Скидаємо index для повторного перегляду
+            }
+        };
 
-            setTimeout(() => {
-                heartElement.style.display = 'none';
-                heartElement.classList.remove('animate');
-            }, 1000);
-        });
+        document.addEventListener('click', handleClick);
     </script>
 </body>
 </html>
